@@ -22,9 +22,9 @@ class _QuizPageState extends State<QuizPage> {
   int questionNumber = 0;
 
   List<String> questions = [
-    "El hombre llleg[o a la Luna",
-    "Has almorzado algo",
-    "Sientes frio",
+    "El hombre llegó a la Luna?",
+    "Has almorzado algo?",
+    "Sientes frio?",
     "Vas a salir manana?"
   ];
 
@@ -35,12 +35,7 @@ class _QuizPageState extends State<QuizPage> {
     true,
   ];
 
-  List<Icon> scoreKeeper = [
-    Icon(Icons.check, color: Colors.greenAccent),
-    Icon(Icons.close, color: Colors.redAccent),
-    Icon(Icons.check, color: Colors.greenAccent),
-    Icon(Icons.close, color: Colors.redAccent),
-  ];
+  List<Icon> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
@@ -76,17 +71,34 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
+                  bool correctAnswer = answer[questionNumber];
+
+                  if (correctAnswer == true) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.greenAccent,
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.redAccent,
+                      ),
+                    );
+                  }
+
                   questionNumber++;
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.redAccent,
-                    ),
-                  );
+
                   setState(() {});
                 },
                 child: Text(
                   "Verdadero",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
                 ),
                 color: Color(0xFF80ed99),
               ),
@@ -97,9 +109,35 @@ class _QuizPageState extends State<QuizPage> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  bool correctAnswer = answer[questionNumber];
+
+                  if (correctAnswer == false) {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.check,
+                        color: Colors.greenAccent,
+                      ),
+                    );
+                  } else {
+                    scoreKeeper.add(
+                      Icon(
+                        Icons.close,
+                        color: Colors.redAccent,
+                      ),
+                    );
+                  }
+
+                  questionNumber++;
+
+                  setState(() {});
+                },
                 child: Text(
                   "Falso",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
                 ),
                 color: Color(0XFFd90429),
               ),
