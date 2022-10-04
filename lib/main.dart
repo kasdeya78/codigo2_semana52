@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:semana52/question.dart';
+import 'package:semana52/quiz_brain.dart';
 
 void main() => runApp(const MyApp());
 
@@ -22,14 +22,9 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   int questionNumber = 0;
 
-  List<Question> questions = [
-    Question(questionText: "El hombre llegó a la Luna?", questionAnswer: true),
-    Question(questionText: "Has almorzado algo?", questionAnswer: false),
-    Question(questionText: "Sientes frio?", questionAnswer: false),
-    Question(questionText: "Vas a salir manana?", questionAnswer: true),
-  ];
-
   List<Icon> scoreKeeper = [];
+
+  QuizBrain quizBrain = QuizBrain();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +44,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  questions[questionNumber].questionText,
+                  quizBrain.getQuestionText(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22.0,
@@ -65,7 +60,7 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer = questions[questionNumber].questionAnswer;
+                  bool correctAnswer = quizBrain.getQuestionAnswer();
 
                   if (correctAnswer == true) {
                     scoreKeeper.add(
@@ -83,7 +78,7 @@ class _QuizPageState extends State<QuizPage> {
                     );
                   }
 
-                  questionNumber++;
+                  quizBrain.nextQuestion();
 
                   setState(() {});
                 },
@@ -104,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer = questions[questionNumber].questionAnswer;
+                  bool correctAnswer = quizBrain.getQuestionAnswer();
 
                   if (correctAnswer == false) {
                     scoreKeeper.add(
@@ -122,7 +117,7 @@ class _QuizPageState extends State<QuizPage> {
                     );
                   }
 
-                  questionNumber++;
+                  quizBrain.nextQuestion();
 
                   setState(() {});
                 },
