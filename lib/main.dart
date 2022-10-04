@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:semana52/question.dart';
 
 void main() => runApp(const MyApp());
 
@@ -21,18 +22,11 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   int questionNumber = 0;
 
-  List<String> questions = [
-    "El hombre llegó a la Luna?",
-    "Has almorzado algo?",
-    "Sientes frio?",
-    "Vas a salir manana?"
-  ];
-
-  List<bool> answer = [
-    true,
-    false,
-    false,
-    true,
+  List<Question> questions = [
+    Question(questionText: "El hombre llegó a la Luna?", questionAnswer: true),
+    Question(questionText: "Has almorzado algo?", questionAnswer: false),
+    Question(questionText: "Sientes frio?", questionAnswer: false),
+    Question(questionText: "Vas a salir manana?", questionAnswer: true),
   ];
 
   List<Icon> scoreKeeper = [];
@@ -55,7 +49,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  questions[questionNumber],
+                  questions[questionNumber].questionText,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 22.0,
@@ -71,7 +65,7 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer = answer[questionNumber];
+                  bool correctAnswer = questions[questionNumber].questionAnswer;
 
                   if (correctAnswer == true) {
                     scoreKeeper.add(
@@ -110,7 +104,7 @@ class _QuizPageState extends State<QuizPage> {
               padding: const EdgeInsets.all(8.0),
               child: MaterialButton(
                 onPressed: () {
-                  bool correctAnswer = answer[questionNumber];
+                  bool correctAnswer = questions[questionNumber].questionAnswer;
 
                   if (correctAnswer == false) {
                     scoreKeeper.add(
